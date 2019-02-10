@@ -1,0 +1,151 @@
+<!--
+Ali Helal
+Professor Deek
+12th October 2018
+IT 202
+Assignment #2 - Library User System 
+/afs/cad.njit.edu/u/a/h/ah366/public_html/LUS_Helal.html
+-->
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Personal information</title>
+  <script type="text/javascript">
+  function validate() {
+    const form = document.getElementById("patronForm");
+    const patronName = document.getElementById("patronName");
+    const patronId = document.getElementById("patronCardNumber");
+    const patronEmail = document.getElementById("patronEmail");
+    const emailCheck = document.getElementById("emailCheck");
+    const patronTransaction = document.getElementById("patronTransaction");
+
+    let message = "";
+
+    if (!patronName.value) {
+      message += "Name field should not be empty\n";
+    }
+
+    if (patronId.value.length !== 8) {
+      message += "Card number field should be 8 digits long\n";
+    }
+
+    if (emailCheck.checked) {
+      if (!patronEmail.value || !patronEmail.checkValidity()) {
+        message += "Please input a valid email";
+      }
+    }
+
+    if (message) {
+      alert("Validation failed:\n" + message);
+    } else if (verify()) {
+      alert("Verification successful:\nUser valid");
+    } else {
+      alert("Verification failed:\nUser invalid");
+      exit();
+    }
+  }
+
+  function verify() {
+    const validPatrons = [
+      { patronName: 'Nadine', patronId: '12345678' },
+      { patronName: 'Jessica', patronId: '87654321' },
+      { patronName: 'Max', patronId: '12341234' },
+      { patronName: 'Ali', patronId: '56785678' },
+      { patronName: 'Matt', patronId: '12345678' }
+    ];
+
+    const patronNameValue = document.getElementById("patronName").value;
+    const patronIdValue = document.getElementById("patronCardNumber").value;
+
+    let found = false;
+    for (let patron of validPatrons) {
+      if (patron.patronName === patronNameValue && patron.patronId === patronIdValue) {
+        found = true;
+        break;
+      }
+    }
+    return found;
+  }
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Personal information</h1>
+    <form id="patronForm">
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="patronName">Patron Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="patronName" placeholder="Enter name: " required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="patronCardNumber">Patron Card Number: </label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" id="patronCardNumber" placeholder="Password" required pattern="\d*" minlength="8" maxlength="8">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="patronEmail">Patron Email: </label>
+        <div class="col-sm-10">
+          <input type="email" class="form-control" id="patronEmail" placeholder="Enter email">
+        </div>
+      </div>
+      <div class="form-group form-check text-center">
+        <input type="checkbox" class="form-check-input" id="emailCheck">
+        <label class="form-check-label" for="emailCheck">Email me a transaction confirmation: </label>
+      </div>
+      <div class="form-group">
+        <label for="patronTransaction">Select a transaction</label>
+        <select class="custom-select" id="patronTransaction">
+          <option selected>Select one:</option>
+          <option value="search">Search</option>
+          <option value="order">Order</option>
+          <option value="register">Register</option>
+        </select>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary btn-lg" onclick="validate();">Continue</button>
+      </div>
+    </form>
+  </div>
+
+  <style type="text/css">
+    input[type=text], select, textarea {
+      width: 50%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+  }
+
+  input[type=email], select, textarea {
+      width: 50%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+  }
+
+  input[type=password], select, textarea {
+      width: 50%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+  }
+
+  label {
+      padding: 12px 12px 12px 0;
+      display: inline-block;
+  }
+  </style>
+
+</body>
+
+</html>
